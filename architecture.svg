@@ -1,0 +1,153 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1600" height="1100" viewBox="0 0 1600 1100" role="img" aria-labelledby="title description">
+  <title id="title">Insurance Intelligence Hub RAG Architecture</title>
+  <desc id="description">Architecture diagram showing PDF and DOCX upload through extraction, section-aware chunking, OpenAI embeddings, PostgreSQL pgvector storage, query retrieval, grounded answer generation, and A/B evaluation.</desc>
+  <defs>
+    <marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse">
+      <path d="M 0 0 L 10 5 L 0 10 z" fill="#607170" />
+    </marker>
+    <style>
+      .title { font: 700 30px 'Manrope', 'Segoe UI', sans-serif; fill: #172b2b; }
+      .subtitle { font: 400 15px 'DM Sans', 'Segoe UI', sans-serif; fill: #607170; }
+      .band { font: 700 16px 'Manrope', 'Segoe UI', sans-serif; fill: #126b62; }
+      .node { fill: #ffffff; stroke: #cbd9d5; stroke-width: 2; rx: 10; }
+      .node-api { fill: #eef6f3; stroke: #8fb8ad; stroke-width: 2; rx: 10; }
+      .node-ai { fill: #fff5e4; stroke: #d5b77f; stroke-width: 2; rx: 10; }
+      .node-db { fill: #edf2f8; stroke: #9aadc3; stroke-width: 2; rx: 10; }
+      .node-title { font: 700 15px 'DM Sans', 'Segoe UI', sans-serif; fill: #172b2b; text-anchor: middle; }
+      .node-copy { font: 400 12px 'DM Sans', 'Segoe UI', sans-serif; fill: #607170; text-anchor: middle; }
+      .line { fill: none; stroke: #607170; stroke-width: 2.5; marker-end: url(#arrow); }
+      .line-dashed { fill: none; stroke: #9a5c12; stroke-width: 2; stroke-dasharray: 7 6; marker-end: url(#arrow); }
+      .note { fill: #fff3dd; stroke: #e1c99d; stroke-width: 1.5; rx: 7; }
+      .note-text { font: 600 12px 'DM Sans', 'Segoe UI', sans-serif; fill: #76501a; }
+      .legend { font: 500 12px 'DM Sans', 'Segoe UI', sans-serif; fill: #607170; }
+      .step { font: 800 11px 'DM Sans', 'Segoe UI', sans-serif; fill: #126b62; text-anchor: middle; }
+    </style>
+  </defs>
+
+  <rect width="1600" height="1100" fill="#f2f6f4" />
+  <path d="M0 0 H1600 V120 C1200 165 420 85 0 145 Z" fill="#e6f1ed" />
+  <text id="title" x="48" y="58" class="title">Insurance Intelligence Hub</text>
+  <text x="48" y="88" class="subtitle">Implemented local RAG architecture · FastAPI :8001 · Next.js :8002 · PostgreSQL + pgvector</text>
+
+  <text x="48" y="165" class="band">01 / INGEST POLICY DOCUMENT</text>
+  <path class="line" d="M245 235 H275" />
+  <path class="line" d="M495 235 H525" />
+  <path class="line" d="M745 235 H775" />
+  <path class="line" d="M995 235 H1025" />
+  <path class="line" d="M1245 235 H1275" />
+
+  <rect x="35" y="190" width="210" height="90" class="node" />
+  <text x="140" y="220" class="node-title">PDF / DOCX</text>
+  <text x="140" y="244" class="node-copy">Policy document</text>
+  <text x="140" y="262" class="node-copy">source file retained</text>
+
+  <rect x="285" y="190" width="210" height="90" class="node-api" />
+  <text x="390" y="220" class="node-title">POST /policies/upload</text>
+  <text x="390" y="244" class="node-copy">Validate type and size</text>
+  <text x="390" y="262" class="node-copy">assign version ID</text>
+
+  <rect x="535" y="190" width="210" height="90" class="node" />
+  <text x="640" y="220" class="node-title">Extract text</text>
+  <text x="640" y="244" class="node-copy">PyMuPDF / python-docx</text>
+  <text x="640" y="262" class="node-copy">page / paragraph / row</text>
+
+  <rect x="785" y="190" width="210" height="90" class="node" />
+  <text x="890" y="220" class="node-title">Section-aware chunks</text>
+  <text x="890" y="244" class="node-copy">Coverage · Deductibles</text>
+  <text x="890" y="262" class="node-copy">Exclusions · Claims · Benefits</text>
+
+  <rect x="1035" y="190" width="210" height="90" class="node-ai" />
+  <text x="1140" y="220" class="node-title">OpenAI embeddings</text>
+  <text x="1140" y="244" class="node-copy">text-embedding-3-small</text>
+  <text x="1140" y="262" class="node-copy">1536-dimensional vector</text>
+
+  <rect x="1285" y="190" width="275" height="90" class="node-db" />
+  <text x="1422" y="220" class="node-title">PostgreSQL + pgvector</text>
+  <text x="1422" y="244" class="node-copy">insurance.policy_chunks</text>
+  <text x="1422" y="262" class="node-copy">vector + source metadata</text>
+
+  <text x="48" y="365" class="band">02 / SEARCH AND GROUNDED ANSWER</text>
+  <path class="line" d="M240 440 H260" />
+  <path class="line" d="M465 440 H485" />
+  <path class="line" d="M690 440 H710" />
+  <path class="line" d="M915 440 H935" />
+  <path class="line" d="M1140 440 H1160" />
+  <path class="line" d="M1365 440 H1385" />
+
+  <rect x="35" y="395" width="205" height="90" class="node" />
+  <text x="137" y="425" class="node-title">User question</text>
+  <text x="137" y="449" class="node-copy">query + optional filters</text>
+  <text x="137" y="467" class="node-copy">Top-K: 1-10</text>
+
+  <rect x="260" y="395" width="205" height="90" class="node-api" />
+  <text x="362" y="425" class="node-title">GET /api/v1/search</text>
+  <text x="362" y="449" class="node-copy">FastAPI route</text>
+  <text x="362" y="467" class="node-copy">SearchService</text>
+
+  <rect x="485" y="395" width="205" height="90" class="node-ai" />
+  <text x="587" y="425" class="node-title">Embed question</text>
+  <text x="587" y="449" class="node-copy">same embedding model</text>
+  <text x="587" y="467" class="node-copy">as indexed chunks</text>
+
+  <rect x="710" y="395" width="205" height="90" class="node-db" />
+  <text x="812" y="425" class="node-title">Exact cosine Top-K</text>
+  <text x="812" y="449" class="node-copy">pgvector nearest vectors</text>
+  <text x="812" y="467" class="node-copy">metadata filters constrain rows</text>
+
+  <rect x="935" y="395" width="205" height="90" class="node" />
+  <text x="1037" y="425" class="node-title">Retrieved passages</text>
+  <text x="1037" y="449" class="node-copy">text + document + section/page</text>
+  <text x="1037" y="467" class="node-copy">similarity = 1 - cosine distance</text>
+
+  <rect x="1160" y="395" width="205" height="90" class="node-ai" />
+  <text x="1262" y="425" class="node-title">AnswerService</text>
+  <text x="1262" y="449" class="node-copy">OpenAI chat model</text>
+  <text x="1262" y="467" class="node-copy">passages only; abstains if weak</text>
+
+  <rect x="1385" y="395" width="175" height="90" class="node-api" />
+  <text x="1472" y="425" class="node-title">Response</text>
+  <text x="1472" y="449" class="node-copy">answer + source</text>
+  <text x="1472" y="467" class="node-copy">scores + status</text>
+
+  <path class="line-dashed" d="M812 485 V535 H1037 V485" />
+  <text x="925" y="558" class="legend" text-anchor="middle">Retrieved text is the answer evidence; cosine similarity is not answer accuracy.</text>
+
+  <text x="48" y="635" class="band">03 / EVALUATION A/B</text>
+  <path class="line" d="M300 715 H355" />
+  <path class="line" d="M630 715 H685" />
+  <path class="line" d="M960 715 H1015" />
+  <path class="line" d="M1290 715 H1345" />
+
+  <rect x="55" y="665" width="245" height="100" class="node" />
+  <text x="177" y="695" class="node-title">Question dataset</text>
+  <text x="177" y="720" class="node-copy">question + expected answer</text>
+  <text x="177" y="740" class="node-copy">same rows for A and B</text>
+
+  <rect x="355" y="665" width="275" height="100" class="node" />
+  <text x="492" y="695" class="node-title">Configurations A / B</text>
+  <text x="492" y="720" class="node-copy">Top-K · prompt · answer model</text>
+  <text x="492" y="740" class="node-copy">indexed embedding · search scope</text>
+
+  <rect x="685" y="665" width="275" height="100" class="node-ai" />
+  <text x="822" y="695" class="node-title">Evaluate each query</text>
+  <text x="822" y="720" class="node-copy">retrieve → answer → grounding</text>
+  <text x="822" y="740" class="node-copy">BLEU-1 · ROUGE-L · exact match</text>
+
+  <rect x="1015" y="665" width="275" height="100" class="node-db" />
+  <text x="1152" y="695" class="node-title">Compare metrics</text>
+  <text x="1152" y="720" class="node-copy">raw retrieval and grounding stay separate</text>
+  <text x="1152" y="740" class="node-copy">winner is a transparent heuristic</text>
+
+  <rect x="1345" y="665" width="215" height="100" class="node" />
+  <text x="1452" y="695" class="node-title">Saved run history</text>
+  <text x="1452" y="720" class="node-copy">browser localStorage</text>
+  <text x="1452" y="740" class="node-copy">not server-side</text>
+
+  <rect x="55" y="830" width="1505" height="150" class="note" />
+  <text x="80" y="865" class="note-text">Implementation boundaries</text>
+  <text x="80" y="897" class="legend">- Current vector index: text-embedding-3-small only; comparing another embedding requires indexing vectors for that model.</text>
+  <text x="80" y="923" class="legend">- Current retriever: exact pgvector cosine Top-K. No hybrid search, reranking, query rewriting, or RAGAS integration.</text>
+  <text x="80" y="949" class="legend">- Policy metadata is stored in PostgreSQL today. MySQL, authentication, background jobs, and server-side evaluation history are planned, not active.</text>
+
+  <text x="48" y="1040" class="subtitle">Local development: Next.js http://localhost:8002 · FastAPI http://localhost:8001 · PostgreSQL configured by PGVECTOR_DATABASE_URL</text>
+</svg>

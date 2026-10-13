@@ -1,0 +1,118 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="1540" viewBox="0 0 1200 1540" role="img" aria-labelledby="title description">
+  <title id="title">Proposed Claim Workflow</title>
+  <desc id="description">A proposed LangGraph-oriented claim workflow from customer claim submission through parallel extraction, PostgreSQL customer lookup and policy retrieval, evidence validation, coverage assessment, recommendation, human review routing, final outcome and customer response.</desc>
+  <defs>
+    <marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto">
+      <path d="M 0 0 L 10 5 L 0 10 z" fill="#607170" />
+    </marker>
+    <style>
+      .title { font: 700 32px 'Segoe UI', sans-serif; fill: #172b2b; }
+      .subtitle { font: 400 16px 'Segoe UI', sans-serif; fill: #607170; }
+      .label { font: 700 14px 'Segoe UI', sans-serif; fill: #126b62; letter-spacing: .6px; }
+      .node { fill: #fff; stroke: #cbd9d5; stroke-width: 2; }
+      .api { fill: #eef6f3; stroke: #8fb8ad; stroke-width: 2; }
+      .orchestrator { fill: #e2f1ed; stroke: #4b9386; stroke-width: 2.5; }
+      .ai { fill: #fff5e4; stroke: #d5b77f; stroke-width: 2; }
+      .data { fill: #edf2f8; stroke: #9aadc3; stroke-width: 2; }
+      .review { fill: #fff0eb; stroke: #d99b83; stroke-width: 2; }
+      .outcome { fill: #edf7eb; stroke: #94bb8a; stroke-width: 2; }
+      .node-title { font: 700 17px 'Segoe UI', sans-serif; fill: #172b2b; text-anchor: middle; }
+      .node-copy { font: 400 13px 'Segoe UI', sans-serif; fill: #607170; text-anchor: middle; }
+      .line { fill: none; stroke: #607170; stroke-width: 2.5; marker-end: url(#arrow); }
+      .join { fill: none; stroke: #607170; stroke-width: 2.5; }
+      .branch-label { font: 700 13px 'Segoe UI', sans-serif; fill: #126b62; }
+      .note { fill: #fff3dd; stroke: #e1c99d; stroke-width: 1.5; }
+      .note-text { font: 500 13px 'Segoe UI', sans-serif; fill: #76501a; }
+    </style>
+  </defs>
+
+  <rect width="1200" height="1540" fill="#f2f6f4" />
+  <path d="M0 0 H1200 V130 C900 165 300 95 0 145 Z" fill="#e6f1ed" />
+  <text x="55" y="60" class="title">Claim Workflow</text>
+  <text x="55" y="92" class="subtitle">Proposed shared orchestration design · LangGraph-based</text>
+
+  <rect x="55" y="125" width="1090" height="56" rx="9" class="note" />
+  <text x="75" y="149" class="note-text">Design proposal, not currently implemented in this application. Recommendations support human</text>
+  <text x="75" y="168" class="note-text">decision-making; they do not make binding coverage or claim decisions.</text>
+
+  <text x="55" y="225" class="label">01 / SUBMISSION</text>
+  <path class="line" d="M600 290 V320" />
+  <path class="line" d="M600 410 V440" />
+
+  <rect x="420" y="235" width="360" height="55" rx="12" class="node" />
+  <text x="600" y="270" class="node-title">CUSTOMER · Claim form + documents</text>
+
+  <rect x="420" y="320" width="360" height="90" rx="12" class="api" />
+  <text x="600" y="354" class="node-title">Claim API / Upload</text>
+  <text x="600" y="379" class="node-copy">FastAPI · validate and accept submission</text>
+  <text x="600" y="398" class="node-copy">Create claim record and retain submitted files</text>
+
+  <rect x="370" y="440" width="460" height="90" rx="14" class="orchestrator" />
+  <text x="600" y="477" class="node-title">LANGGRAPH · Claim Orchestrator</text>
+  <text x="600" y="503" class="node-copy">Coordinate stateful steps, routing and workflow status</text>
+
+  <text x="55" y="575" class="label">02 / GATHER CLAIM CONTEXT IN PARALLEL</text>
+  <path class="line" d="M600 530 V558 H220 V590" />
+  <path class="line" d="M600 558 V590" />
+  <path class="line" d="M600 558 H980 V590" />
+
+  <rect x="90" y="590" width="260" height="100" rx="12" class="node" />
+  <text x="220" y="625" class="node-title">Claim form extraction</text>
+  <text x="220" y="650" class="node-copy">Capture claimant, dates, loss details</text>
+  <text x="220" y="670" class="node-copy">and submitted evidence references</text>
+
+  <rect x="470" y="590" width="260" height="100" rx="12" class="data" />
+  <text x="600" y="625" class="node-title">PostgreSQL customer lookup</text>
+  <text x="600" y="650" class="node-copy">insurance.customers · lookup by customer_id</text>
+  <text x="600" y="670" class="node-copy">Customer and policyholder information</text>
+
+  <rect x="850" y="590" width="260" height="100" rx="12" class="ai" />
+  <text x="980" y="625" class="node-title">Policy RAG retrieval</text>
+  <text x="980" y="650" class="node-copy">Retrieve relevant policy wording</text>
+  <text x="980" y="670" class="node-copy">with sources for evidence</text>
+
+  <path class="join" d="M220 690 V725 H600" />
+  <path class="join" d="M600 690 V725" />
+  <path class="join" d="M980 690 V725 H600" />
+  <path class="line" d="M600 725 V755" />
+
+  <rect x="405" y="755" width="390" height="85" rx="12" class="node" />
+  <text x="600" y="790" class="node-title">Claim validation &amp; evidence check</text>
+  <text x="600" y="815" class="node-copy">Check completeness, consistency and source support</text>
+
+  <path class="line" d="M600 840 V875" />
+  <rect x="405" y="875" width="390" height="85" rx="12" class="ai" />
+  <text x="600" y="910" class="node-title">Coverage / eligibility assessment</text>
+  <text x="600" y="935" class="node-copy">Compare facts with retrieved policy terms</text>
+
+  <path class="line" d="M600 960 V995" />
+  <rect x="405" y="995" width="390" height="85" rx="12" class="node" />
+  <text x="600" y="1030" class="node-title">Claim decision recommendation</text>
+  <text x="600" y="1055" class="node-copy">Provide rationale, evidence and uncertainty</text>
+
+  <path class="line" d="M600 1080 V1110" />
+  <path d="M600 1110 L730 1180 L600 1250 L470 1180 Z" class="node" />
+  <text x="600" y="1176" class="node-title">Human review</text>
+  <text x="600" y="1198" class="node-copy">required?</text>
+
+  <path class="line" d="M470 1180 H300 V1290" />
+  <text x="350" y="1168" class="branch-label">YES</text>
+  <path class="line" d="M730 1180 H900 V1290" />
+  <text x="820" y="1168" class="branch-label">NO · within approved policy</text>
+
+  <rect x="180" y="1290" width="240" height="85" rx="12" class="review" />
+  <text x="300" y="1325" class="node-title">Human review</text>
+  <text x="300" y="1350" class="node-copy">Authorized reviewer decides</text>
+  <text x="300" y="1368" class="node-copy">or requests more information</text>
+
+  <rect x="780" y="1290" width="240" height="85" rx="12" class="outcome" />
+  <text x="900" y="1325" class="node-title">Final claim outcome</text>
+  <text x="900" y="1350" class="node-copy">Record approved workflow result</text>
+  <text x="900" y="1368" class="node-copy">and supporting rationale</text>
+
+  <path class="line" d="M300 1375 V1410 H600" />
+  <path class="line" d="M900 1375 V1410 H600" />
+  <rect x="420" y="1410" width="360" height="75" rx="12" class="api" />
+  <text x="600" y="1442" class="node-title">Customer response</text>
+  <text x="600" y="1467" class="node-copy">Communicate outcome and next steps</text>
+</svg>

@@ -1,0 +1,2 @@
+Database migrations are managed by Alembic. Run `python -m alembic upgrade head`
+from the project root after configuring PGVECTOR_DATABASE_URL.
